@@ -1,0 +1,179 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+{#<nav class="navbar navbar-dark bg-dark">#}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'ORC:about' %}"><h1>Omaha Retirement Centre </h1></a>
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        {% if request.user.is_orc_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:workorder_list' %}">
+                <span>Workorder </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:maintenancework_list' %}">
+                <span>Maintenance Work</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:resident_list' %}">
+                <span>Resident</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:maintenance_worker_list' %}">
+                <span>Maintenance Worker </span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:property_list' %}">
+                <span>Room Details</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:orc_staff_list' %}">
+                <span>Staff Details</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:equipment_list' %}">
+                <span>Equipment Details</span>
+              </a>
+            </li>
+         {% elif request.user.is_maintenanceworker %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:maintenancework_workerview' pk=request.user.id %}">
+                <span>Maintenance Work Details</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:equipment_list' %}">
+                <span>Equipment Details</span>
+              </a>
+            </li>
+
+        {% elif request.user.is_resident %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ORC:resident_workorderview' pk=request.user.id %}">
+
+                <span>Workorder Details</span>
+              </a>
+            </li>
+        {% endif %}
+      </ul>
+
+</div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                {% if request.user.is_orc_staff %}
+                    <a class="navbar-brand" href="#">Hi I am Staff</a>
+                    <a class="nav-link text-capitalize">{{ request.user.orc_staff.orc_staff_name }}</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white">
+                            <span class="glyphicon glyphicon-Home "></span><b style="color: white">My Account</b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'logout' %}"><i class="fa fa-btn fa-sign-out"></i><b>Logout</b></a></li>
+                            <li><a href="{% url 'ORC:change_password' %}"><b>Forgot Password</b></a></li>
+                        </ul>
+                    </li>
+                {% elif request.user.is_resident %}
+                    <a class="navbar-brand" href="#">Hi I am Resident</a>
+                    <a class="nav-link text-capitalize">{{ request.user.resident.resident_name }}</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white">
+                            <span class="glyphicon glyphicon-Home "></span><b style="color: white">My Account</b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'logout' %}"><i class="fa fa-btn fa-sign-out"></i><b>Logout</b></a></li>
+                            <li><a href="{% url 'ORC:change_password' %}"><b>Forgot Password</b></a></li>
+                        </ul>
+                    </li>
+                {% elif request.user.is_maintenanceworker %}
+                     <a class="navbar-brand" href="#">Hi I am Maintenance Worker</a>
+                    <a class="nav-link text-capitalize">{{ request.user.maintenanceworker.maintenanceworker_name }}</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white">
+                            <span class="glyphicon glyphicon-Home "></span><b style="color: white">My Account</b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'logout' %}"><i class="fa fa-btn fa-sign-out"></i><b>Logout</b></a></li>
+                            <li><a href="{% url 'ORC:change_password' %}"><b>Forgot Password</b></a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <h2><a class="nav-item nav-link" href="{% url 'login' %}">Login</a></h2>
+
+                {% endif %}
+             </li>
+        </ul>
+    </div>
+
+</nav>
+
+
+
+ <style>
+        body,html{
+            height: 100%;
+            margin: 0;
+            background: #7F7FD5;
+            background: -webkit-linear-gradient(to right, #ffffff, #ffffff);
+            background: linear-gradient(to right, #ffffff, #de9404);
+        }
+        #events_card{
+            padding-bottom: 40px;
+        }
+    </style>
+
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<div class="content container">
+    <div class="row">
+        <div class="col-md-8">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert"-{{message.tags}}>
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+{% extends 'ORC/base.html' %}
+   {% block content %}
+
+
+        <h2  style="color:firebrick" align="center" ><b>STAFF DETAILS</b></h2>
+<br>
+
+        <table class="table-bordered" style="background-color:white" align="center">
+            <thead>
+                        <tr class="bg-info" style="background:white">
+                <th>Staff Id</th>
+                <th>User</th>
+                <th>Staff Name</th>
+                <th>Staff Email Address </th>
+                <th>Staff Address </th>
+                <th>Staff Years Of Experience</th>
+                <th>Staff Contact Details</th>
+                <th>Staff Position</th>
+                <th>Staff Start Date</th>
+                <th>Staff End Date</th>
+
+
+
+
+                <th colspan="9" >Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for orc_staff in orc_staffs %}
+                <tr>
+
+                    <td>{{ orc_staff.orc_staff_id }}</td>
+                    <td>{{ orc_staff.user }}</td>
+                    <td>{{ orc_staff.orc_staff_name }}</td>
+                    <td>{{ orc_staff.orc_staff_emailaddress }}</td>
+                    <td>{{ orc_staff.orc_staff_address }}</td>
+                    <td>{{ orc_staff.orc_staff_yearsofexperience }}</td>
+                    <td>{{ orc_staff.orc_staff_contactdetails }}</td>
+                    <td>{{ orc_staff.orc_staff_position }}</td>
+                    <td>{{ orc_staff.orc_staff_startdate }}</td>
+                    <td>{{ orc_staff.orc_staff_enddate }}</td>
+
+
+
+
+
+                        <td><a href="{% url 'ORC:orc_staff_edit' pk=orc_staff.pk%}" class="btn btn-warning">Edit</a>
+
+
+<td><a href="{% url 'ORC:orc_staff_delete' pk=orc_staff.pk%}" onclick="return confirm ('Are you sure you want to delete?')"
+                  class="btn btn-danger">Delete</a>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+        </table>
+       <br>
+ <td><a href="{% url 'ORC:orc_staff_new' %}"
+                           class="btn btn-primary">Add New Staff</a>
+    </body>
+    </html>
+{% endblock %}

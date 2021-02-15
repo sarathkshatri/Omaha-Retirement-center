@@ -1,0 +1,10 @@
+{% extends 'ORC/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <h1>Edit Maintenance Work</h1>
+    <form method="POST" class="maintenancework-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"  class="save btn btn-primary">Update</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% block body_block %}
+    <h1>Delete {{ equipment.equipment_name }}?</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Delete">
+        <a href="{% url 'ORC:home' pk=equipment.equipment_id %} ">Cancel</a>
+
+    </form>
+
+{% endblock %}

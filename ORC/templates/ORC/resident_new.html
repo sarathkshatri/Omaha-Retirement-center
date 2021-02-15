@@ -1,0 +1,9 @@
+{% extends 'ORC/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Add New Resident</h1>
+    <form method="POST" class="service-form">{% csrf_token %}
+          {{ form|crispy }}<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <button type="submit" class="save btn btn-primary">Save</button>
+    </form>
+{% endblock %}

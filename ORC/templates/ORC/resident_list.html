@@ -1,0 +1,69 @@
+  {% extends 'ORC/base.html' %}
+   {% block content %}
+
+
+
+
+        <h2  style="color:firebrick" align="center" ><b>RESIDENT DETAILS</b></h2>
+
+
+        <table class="table-bordered"  style="background-color:white" align="center">
+            <thead>
+                        <tr class="bg-info" style="background:white">
+                <th>Resident Id</th>
+                <th>User Name</th>
+                <th>Resident Name</th>
+                <th>Resident Occupation</th>
+                <th>Resident Email Address Priority</th>
+                <th>Resident Marital Status Number</th>
+                <th>Resident Family Count</th>
+                <th>Resident Pet Details</th>
+                <th>Resident Contact Details</th>
+                <th>Resident Start Date</th>
+                <th>Resident End Date</th>
+
+
+
+
+                <th colspan="9" >Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for resident in residents %}
+                <tr>
+
+                    <td>{{ resident.resident_id }}</td>
+                    <td>{{ resident.user }}</td>
+                    <td>{{ resident.resident_name }}</td>
+                    <td>{{ resident.resident_occupation }}</td>
+                    <td>{{ resident.resident_emailaddress }}</td>
+                    <td>{{ resident.resident_marital_status }}</td>
+                    <td>{{ resident.resident_familymember_count }}</td>
+                    <td>{{ resident.resident_petdetails }}</td>
+                    <td>{{ resident.resident_contactdetails }}</td>
+                    <td>{{ resident.resident_startdate }}</td>
+                    <td>{{ resident.resident_enddate }}</td>
+
+
+
+
+                        <td><a href="{% url 'ORC:resident_edit' pk=resident.pk%}" class="btn btn-warning">Edit</a>
+
+
+<td><a href="{% url 'ORC:resident_delete' pk=resident.pk%}" onclick="return confirm ('Are you sure you want to delete?')"
+                  class="btn btn-danger">Delete</a>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+        </table>
+       <br>
+ <td><a href="{% url 'ORC:resident_new' %}"
+                           class="btn btn-primary">Add New Resident</a>
+    </body>
+    </html>
+{% endblock %}

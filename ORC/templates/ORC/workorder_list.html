@@ -1,0 +1,63 @@
+{% extends 'ORC/base.html' %}
+{% block content %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <style>
+        body,html{
+            height: 100%;
+            margin: 0;
+            background: #7F7FD5;
+            background: -webkit-linear-gradient(to right, #ffffff, #ffffff);
+            background: linear-gradient(to right, #ffffff, #de9404);
+        }
+        #events_card{
+            padding-bottom: 40px;
+        }
+    </style>
+
+
+
+    <h1 class ="probootsrap-card-heading"> Workorder Details</h1><br>
+    <ul class="">
+        <a href="{% url 'ORC:workorder_new' %}" style="padding-right: 15Px" class="row"><span class="btn btn-primary">New workorder</span></a>
+        {% if request.user.is_orc_staff %}
+            <a href="{% url 'ORC:export_workorders_xls' %}" style="padding-right: 15Px; padding-top: 5Px" class="row"><span class="btn btn-primary">Export</span></a>
+        {% endif %}
+    </ul>
+
+    <div class="content container">
+
+    <div class="row" id="events_card">
+        {% for wo in workorder %}
+            <div class="col-md-16"></div>
+            <div class="col-md-5">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-body">
+                         <h5 class="card-title" style = "color:lightblue" >Workorder ID: {{ wo.workorder_id }}</h5>
+                            <strong style = "color:yellow">Resident Name::</strong><b class="card-text" style = "color:#f3f7cc">{{ wo.resident_name }}</b><br>
+                            <strong style = "color:yellow">Description::  </strong><b class="card-text" style = "color:#f3f7cc">{{ wo.workorder_Description }}</b><br>
+                            <strong style = "color:yellow">Priority::      </strong><b class="card-text" style = "color:#f3f7cc">{{ wo.workorder_priority }}</b><br>
+                            <strong style = "color:yellow">Room Number::      </strong><b class="card-text" style = "color:#f3f7cc">{{ wo.property_number }}</b><br>
+                            <strong style = "color:yellow">Created Date::   </strong><b class="card-text" style = "color:#f3f7cc">{{ wo.created_date }}</b><br>
+                        {%  if wo.is_open %}
+                            <strong style = "color:yellow">Status::  </strong><b class="badge badge-success">Open</b>
+                        {% else %}
+                            <strong style = "color:yellow">Status::  </strong><span class="badge badge-danger">Closed</span>
+                        {% endif %}
+                            <br><br>
+                            <td><a href="{% url 'ORC:workorder_delete' pk=wo.pk %}" onclick="return confirm ('Are you sure you want to delete?')"
+                                   class="btn btn-danger">Delete</a></td>
+
+                            <td><a href="{% url 'ORC:workorder_edit' pk=wo.pk %}" class="btn btn-warning">Edit</a></td>
+
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'ORC/base.html' %}
+   {% block content %}
+
+
+
+        <h2  style="color:firebrick" align="center" ><b>Maintenance Worker Details</b></h2>
+    <br>
+
+        <table class="table-bordered" style="background-color:white"  align="center">
+            <thead>
+                        <tr class="bg-info" style="background:white">
+                <th>Maintenance Worker Id</th>
+                <th>User Name</th>
+                <th>Maintenance Worker Name</th>
+                <th>Maintenance Worker Email Address</th>
+                <th>Maintenance Worker Address</th>
+                <th>Maintenance Worker Years Of Experience</th>
+                <th>Maintenance Worker Contact Details</th>
+                <th>Maintenance Worker Start Date</th>
+                <th>Maintenance Worker End Date</th>
+
+
+
+
+                <th colspan="9" >Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for maintenanceworker in maintenanceworkers %}
+                <tr>
+
+                    <td>{{ maintenanceworker.worker_id}}</td>
+                    <td>{{ maintenanceworker.user}}</td>
+                    <td>{{ maintenanceworker.maintenanceworker_name }}</td>
+                    <td>{{ maintenanceworker.worker_emailaddress }}</td>
+                    <td>{{ maintenanceworker.worker_address }}</td>
+                    <td>{{ maintenanceworker.worker_yearsofexperience }}</td>
+                    <td>{{ maintenanceworker.worker_contactdetails }}</td>
+                    <td>{{ maintenanceworker.worker_startdate }}</td>
+                    <td>{{ maintenanceworker.worker_enddate }}</td>
+
+
+                        <td><a href="{% url 'ORC:maintenance_worker_edit' pk=maintenanceworker.pk%}" class="btn btn-warning">Edit</a>
+
+
+<td><a href="{% url 'ORC:maintenance_worker_delete' pk=maintenanceworker.pk%}" onclick="return confirm ('Are you sure you want to delete?')"
+                  class="btn btn-danger">Delete</a>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+        </table>
+       <br>
+ <td><a href="{% url 'ORC:maintenance_worker_new' %}"
+                           class="btn btn-primary">Add New Maintenance Worker</a>
+    </body>
+    </html>
+{% endblock %}

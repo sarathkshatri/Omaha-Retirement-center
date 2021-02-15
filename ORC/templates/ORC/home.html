@@ -1,0 +1,77 @@
+{% extends 'ORC/base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+
+    <section class="probootstrap-slider flexslider">
+        <div class="probootstrap-wrap-banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="probootstrap-home-search probootstrap-animate">
+                            <h1 class="heading">Search with workorder priority</h1>
+                            <div class="probootstrap-field-group">
+                                <div class="probootstrap-fields">
+
+                                    <div class="search-field">
+                                        <div class="search-category">
+                                            <i class="icon-chevron-down"></i>
+                                            <select name="Priority" id="" class="form-control">
+                                                <option value="">Low</option>
+                                                <option value="">Medium</option>
+                                                <option value="">High</option>
+                                                <option value="">Critical</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success" type="submit"><i class="icon-magnifying-glass t2"></i> Start Search</button>
+                                </div>
+                                <p>&copy; 2019 . Designed by Team 3</a> </p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <style>
+        body,html{
+            height: 100%;
+            margin: 0;
+            background: #7F7FD5;
+            background: -webkit-linear-gradient(to right, #eacda3, #d6ae7b);
+            background: linear-gradient(to right, #eacda3, #d6ae7b);
+        }
+        #events_card{
+            padding-bottom: 40px;
+        }
+    </style>
+
+    <div class="row" id="events_card">
+        {% for wo in workorders %}
+            <div class="col-md-6">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ wo.Id }}</h5>
+                        <strong style = "color:#ba2121">Created By</strong><p class="card-text"> {{ wo.user }}</p>
+                        <strong style = "color:#ba2121">Description</strong><p class="card-text">{{ wo.woDescription }}</p>
+                        <strong style = "color:#ba2121">Priority</strong><p class="card-text">{{ wo.woPriority }}</p>
+                        <strong style = "color:#ba2121">Room Number</strong><p class="card-text">{{ wo.roomNumber }}</p>
+                        <strong style = "color:#ba2121">Created Date</strong><p class="card-text">{{ wo.woStartDate }}</p>
+                        {%  if wo.is_open %}
+                            <strong style = "color:#ba2121">Status</strong><span class="badge badge-success">Open</span>
+                        {% else %}
+                            <span class="badge badge-danger">Closed</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

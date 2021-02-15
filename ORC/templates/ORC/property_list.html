@@ -1,0 +1,62 @@
+  {% extends 'ORC/base.html' %}
+   {% block content %}
+
+
+
+
+
+
+        <h2  style="color:firebrick" align="center" ><b>ROOM ALLOTTMENT DETAIL</b></h2>
+    <br>
+
+        <table class="table-bordered" style="background-color:white" align="center">
+            <thead>
+                        <tr class="bg-info" style="background:white">
+                <th>Allotment Id</th>
+                <th>Resident Name</th>
+                <th>Property Number</th>
+                <th>Property Floor</th>
+                <th>Allotment Start Date</th>
+                <th>Allotment End Date</th>
+
+
+
+
+                <th colspan="6" >Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for roomallotment in roomallotments %}
+                <tr>
+
+                    <td>{{ roomallotment.allotment_id }}</td>
+                    <td>{{ roomallotment.resident_name }}</td>
+                    <td>{{ roomallotment.property_number }}</td>
+                    <td>{{ roomallotment.property_floor }}</td>
+                    <td>{{ roomallotment.allotment_startdate }}</td>
+                    <td>{{ roomallotment.allotment_enddate }}</td>
+
+
+
+
+
+                        <td><a href="{% url 'ORC:property_edit' pk=roomallotment.pk%}" class="btn btn-warning">Edit</a>
+
+
+<td><a href="{% url 'ORC:property_delete' pk=roomallotment.pk%}" onclick="return confirm ('Are you sure you want to delete?')"
+                  class="btn btn-danger">Delete</a>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+        </table>
+       <br>
+ <td><a href="{% url 'ORC:property_new' %}"
+                           class="btn btn-primary">Add New Room Allotment</a>
+    </body>
+    </html>
+{% endblock %}
